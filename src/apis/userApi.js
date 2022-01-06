@@ -5,6 +5,10 @@ const userApi = {
     const url = "/Users/signin";
     return axiosClient.post(url, data);
   },
+  register(data){
+    const url = "/Users/signup"
+    return axiosClient.post(url, data)
+  }
 };
 
 export default userApi;

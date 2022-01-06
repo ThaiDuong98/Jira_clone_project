@@ -8,7 +8,6 @@ function InputField({ name, control, errors, ...otherProps }) {
     fullWidth: true,
     variant: "outlined",
     size: "small",
-    helperText: "",
     helperText: errors,
   };
   return (

@@ -12,15 +12,27 @@ export const processLogin = createAsyncThunk(
     }
 )
 
+export const processRegister = createAsyncThunk(
+    "user/register",
+    async (user) => {
+        const respone = await userApi.register(user)
+
+        return respone.data
+    }
+)
 
 const userSlice = createSlice({
     name: "user",
     initialState: {
         userInfo: {},
+        statusCode: ''
     },
     extraReducers: {
         [processLogin.fulfilled]: (state, action) => {
             state.userInfo = action.payload
+        },
+        [processRegister.fulfilled]: (state, action) => {
+            state.statusCode = action.payload.statusCode
         }
     }
 })

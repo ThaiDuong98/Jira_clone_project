@@ -3,19 +3,33 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Box, Typography, Card, CardContent, Grid } from "@mui/material";
-import { Link } from "react-router-dom";
 import InputField from "../CustomTextfield";
 import CustomButton from "../CustomButton";
+import { Link } from "react-router-dom";
 import { useStyle } from "../../assets/styles/useStyle";
 
 const schema = yup
   .object({
     email: yup.string().required("Required").email("Mail is invalid"),
-    passWord: yup.string().required("Required"),
+    passWord: yup
+      .string()
+      .required("Required")
+      .min(8, "password have to at least 8 character"),
+    name: yup
+      .string()
+      .required("Required")
+      .min(2, "Name must be at least 2 characters"),
+    phoneNumber: yup
+      .number()
+      .required("Required")
+      .typeError("Phone must be a number")
+      .positive()
+      .integer()
+      .test("Phone number is invalid.", (val) => val.toString().length === 10),
   })
   .required();
 
-function LoginForm({ onSubmitLogin, initialValue }) {
+function RegisterForm({ initialValue, onSubmitRegister }) {
   const classes = useStyle();
   const {
     control,
@@ -36,10 +50,10 @@ function LoginForm({ onSubmitLogin, initialValue }) {
         }}
       >
         <Typography variant="h4" align="center">
-          Login
+          Register
         </Typography>
         <CardContent>
-          <form onSubmit={handleSubmit(onSubmitLogin)}>
+          <form onSubmit={handleSubmit(onSubmitRegister)}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <InputField
@@ -60,16 +74,34 @@ function LoginForm({ onSubmitLogin, initialValue }) {
                 />
               </Grid>
               <Grid item xs={12}>
+                <InputField
+                  name="name"
+                  control={control}
+                  label="Name"
+                  type="text"
+                  errors={errors.name?.message}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <InputField
+                  name="phoneNumber"
+                  control={control}
+                  label="Phone Number"
+                  type="text"
+                  errors={errors.phoneNumber?.message}
+                />
+              </Grid>
+              <Grid item xs={12}>
                 <CustomButton type="submit" fullWidth variant="contained">
-                  Login
+                  Register
                 </CustomButton>
               </Grid>
             </Grid>
           </form>
         </CardContent>
         <Typography align="center">
-          <Link to="/auth/register" className={classes.link}>
-            Do you already have an account? Log in
+          <Link to="/auth/login" className={classes.link}>
+            Do you already have an account ?. Please click here to login
           </Link>
         </Typography>
       </Card>
@@ -77,4 +109,4 @@ function LoginForm({ onSubmitLogin, initialValue }) {
   );
 }
 
-export default LoginForm;
+export default RegisterForm;
