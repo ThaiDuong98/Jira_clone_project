@@ -69,7 +69,9 @@ const Drawer = styled(MuiDrawer, {
 
 export default function SideBar() {
   const [open, setOpen] = useState(true);
-  // const { current } = useSelector((state) => state.userReducer);
+
+  const userInfo = useSelector((state) => state.user.userInfo);
+  console.log(userInfo);
 
   const handleOpenOrClose = () => {
     setOpen((open) => !open);

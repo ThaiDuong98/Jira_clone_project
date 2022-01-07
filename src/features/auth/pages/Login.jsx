@@ -19,7 +19,7 @@ function Login() {
     try {
       const respone = await dispatch(processLogin(values)).unwrap();
       // const userInfo = unwrapResult(respone)
-      navigate("/");
+      navigate("/project");
     } catch (error) {
       toast.error("Login Failed!");
     }
