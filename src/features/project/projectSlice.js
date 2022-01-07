@@ -5,7 +5,7 @@ export const getAllProject = createAsyncThunk(
     'project/getAll',
     async () => {
         const respone = await projectAPI.getAllProject()
-        console.log("Res", respone.data.content)
+      
         return respone.data.content
     }
 )

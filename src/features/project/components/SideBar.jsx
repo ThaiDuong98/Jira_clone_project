@@ -71,7 +71,6 @@ export default function SideBar() {
   const [open, setOpen] = useState(true);
 
   const userInfo = useSelector((state) => state.user.userInfo);
-  console.log(userInfo);
 
   const handleOpenOrClose = () => {
     setOpen((open) => !open);
@@ -97,17 +96,17 @@ export default function SideBar() {
             <ListItem disablePadding>
               <ListItemButton>
                 <Box sx={{ minWidth: "56px" }}>
-                  {/* <Box
+                  <Box
                     component="img"
-                    src={current.avatar}
-                    alt={current.name}
+                    src={userInfo.avatar}
+                    alt={userInfo.name}
                     sx={{ borderRadius: "50%" }}
                     height="40px"
-                  ></Box> */}
+                  ></Box>
                 </Box>
                 <Box sx={{ display: "flex", flexDirection: "column", ml: 1 }}>
-                  {/* <ListItemText primary={current.name} />
-                  <ListItemText primary={current.phoneNumber} /> */}
+                  <ListItemText primary={userInfo.name} />
+                  <ListItemText primary={userInfo.phoneNumber} />
                 </Box>
               </ListItemButton>
             </ListItem>
