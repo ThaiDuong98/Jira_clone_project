@@ -6,12 +6,11 @@ import { toast } from "react-toastify";
 import { unwrapResult } from "@reduxjs/toolkit";
 import LoginForm from "../../../components/LoginForm";
 
-const initialValue = {
-  email: "",
-  passWord: "",
-};
-
 function Login() {
+  const initialValue = {
+    email: "",
+    passWord: "",
+  };
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.userInfo);
