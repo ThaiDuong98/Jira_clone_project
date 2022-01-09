@@ -9,6 +9,8 @@ import {
   TablePagination,
   TableRow,
   Paper,
+  Button,
+  FormHelperText,
 } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
@@ -17,11 +19,37 @@ import Tooltip from "@mui/material/Tooltip";
 import { DeleteOutlined } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import MembersDialog from "../components/MembersDialog";
+import DialogFrame from "../../../components/Dialog";
+import DialogConfirm from "../../../components/DialogConfirm";
+import { deleteProject } from "../projectSlice";
+import { typography } from "@mui/system";
+import { toast } from "react-toastify";
+import ProjectForm from "./ProjectForm";
+import {
+  updateProject,
+  createProject,
+  getUpdatedProject,
+  clearUpdateProject,
+} from "../projectSlice";
+import { useNavigate } from "react-router-dom";
 
-function ProjectList({ projectList }) {
+function ProjectList({ projectList, onSubmitProjectForm }) {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
+  const [openProjectDialog, setOpenProjectDialog] = useState(false);
+  const [openDialogConfirm, setOpenDialogConfirm] = useState(false);
+  const [idProject, setIdProject] = useState(0);
+  const [projectName, setProjectName] = useState();
+  const [updatedProject, setUpdatedProject] = useState(undefined);
+
+  const handleClickOpenProjectDialog = () => {
+    setOpenProjectDialog(true);
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -32,9 +60,60 @@ function ProjectList({ projectList }) {
     setPage(0);
   };
 
+  const handleClickDeleteProject = (project) => {
+    setIdProject(project.id);
+    setProjectName(project.projectName);
+    setOpenDialogConfirm(true);
+  };
+
+  const handleDeleteProject = () => {
+    if (idProject) {
+      dispatch(deleteProject(idProject));
+      setIdProject(null);
+      toast.success("Delete project successfully!");
+    }
+  };
+
+  const handleClickEditProject = (project) => {
+    setUpdatedProject(project);
+    setOpenProjectDialog(true);
+    dispatch(getUpdatedProject(project));
+  };
+
+  const onHandleCancel = () => {
+    setTimeout(() => {
+      setUpdatedProject(undefined);
+      dispatch(clearUpdateProject(updateProject));
+    }, 0);
+  };
+
   return (
     <Box>
-      <CardHeader title="Project List"></CardHeader>
+      <Box>
+        <CardHeader title="Project List"></CardHeader>
+        <Box sx={{ mb: 1 }}>
+          <Button
+            onClick={handleClickOpenProjectDialog}
+            variant="contained"
+            color="primary"
+          >
+            Add project
+          </Button>
+        </Box>
+        <DialogFrame
+          title={updatedProject ? "Update project" : "Add Project"}
+          setOpen={setOpenProjectDialog}
+          open={openProjectDialog}
+          onHandleCancel={onHandleCancel}
+          maxWidth="md"
+        >
+          <ProjectForm
+            initialValue={updatedProject}
+            onSubmitProjectForm={onSubmitProjectForm}
+            setOpen={setOpenProjectDialog}
+          />
+        </DialogFrame>
+      </Box>
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table aria-label="custom pagination table">
@@ -80,12 +159,18 @@ function ProjectList({ projectList }) {
                         </TableCell>
                         <TableCell>
                           <Tooltip title="Delete">
-                            <IconButton>
+                            <IconButton
+                              onClick={() => {
+                                handleClickDeleteProject(project);
+                              }}
+                            >
                               <DeleteOutlined color="error" />
                             </IconButton>
                           </Tooltip>
                           <Tooltip title="Edit">
-                            <IconButton>
+                            <IconButton
+                              onClick={() => handleClickEditProject(project)}
+                            >
                               <EditIcon color="info" />
                             </IconButton>
                           </Tooltip>
@@ -96,6 +181,15 @@ function ProjectList({ projectList }) {
             </TableBody>
           </Table>
         </TableContainer>
+        <DialogConfirm
+          open={openDialogConfirm}
+          setOpen={setOpenDialogConfirm}
+          onConfirm={handleDeleteProject}
+          title="Confirm delete project"
+        >
+          Do you want to detele "{projectName}" project?
+        </DialogConfirm>
+
         <TablePagination
           rowsPerPageOptions={[6, 20, 30]}
           component="div"

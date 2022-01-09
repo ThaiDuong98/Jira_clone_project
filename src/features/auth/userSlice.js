@@ -24,12 +24,13 @@ export const processRegister = createAsyncThunk(
 const userSlice = createSlice({
     name: "user",
     initialState: {
-        userInfo: {},
+        userInfo: JSON.parse(localStorage.getItem('userInfo')) || {},
         statusCode: ''
     },
     extraReducers: {
         [processLogin.fulfilled]: (state, action) => {
             state.userInfo = action.payload
+            localStorage.setItem('userInfo', JSON.stringify(state.userInfo))
         },
         [processRegister.fulfilled]: (state, action) => {
             state.statusCode = action.payload.statusCode

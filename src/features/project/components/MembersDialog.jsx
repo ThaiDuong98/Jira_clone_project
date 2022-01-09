@@ -18,16 +18,17 @@ import {
 } from "@mui/material";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import InputField from "../../../components/CustomTextfield";
+import DialogFrame from "../../../components/Dialog";
 
 function MembersDialog() {
-  const [open, setOpen] = React.useState(false);
+  const [openMemberDialog, setOpenMemberDialog] = React.useState(false);
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setOpenMemberDialog(true);
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleCloseOpen = () => {
+    setOpenMemberDialog(false);
   };
 
   return (
@@ -35,44 +36,46 @@ function MembersDialog() {
       <Tooltip title="Add members">
         <ManageAccountsIcon color="primary" onClick={handleClickOpen} />
       </Tooltip>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>Add members</DialogTitle>
-        <DialogContent>
-          <TextField
-            autoFocus
-            margin="dense"
-            id="name"
-            label="Search member"
-            type="text"
-            fullWidth
-            variant="standard"
-          />
-          <TableContainer>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>id </TableCell>
-                  <TableCell>name </TableCell>
-                  <TableCell>phone </TableCell>
-                  <TableCell>mail </TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <TableRow>
-                  <TableCell>1 </TableCell>
-                  <TableCell>Dương </TableCell>
-                  <TableCell>123344 </TableCell>
-                  <TableCell>duong@gmail.com </TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </DialogContent>
+      <DialogFrame
+        title="Add members"
+        setOpen={setOpenMemberDialog}
+        open={openMemberDialog}
+      >
+        <TextField
+          autoFocus
+          margin="dense"
+          id="name"
+          label="Search member"
+          type="text"
+          fullWidth
+          variant="standard"
+        />
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>id </TableCell>
+                <TableCell>name </TableCell>
+                <TableCell>phone </TableCell>
+                <TableCell>mail </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              <TableRow>
+                <TableCell>1 </TableCell>
+                <TableCell>Dương </TableCell>
+                <TableCell>123344 </TableCell>
+                <TableCell>duong@gmail.com </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+
         <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>OK</Button>
+          <Button onClick={handleCloseOpen}>Cancel</Button>
+          <Button>OK</Button>
         </DialogActions>
-      </Dialog>
+      </DialogFrame>
     </div>
   );
 }
