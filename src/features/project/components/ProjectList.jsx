@@ -33,12 +33,14 @@ import {
   getUpdatedProject,
   clearUpdateProject,
 } from "../projectSlice";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import MembersList from "./MemberList";
+import { useStyle } from "../../../assets/styles/useStyle";
 
 function ProjectList({ projectList, onSubmitProjectForm }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const classes = useStyle();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
   const [openProjectDialog, setOpenProjectDialog] = useState(false);
@@ -147,7 +149,14 @@ function ProjectList({ projectList, onSubmitProjectForm }) {
                         key={project.id}
                       >
                         <TableCell>{project.id}</TableCell>
-                        <TableCell>{project.projectName}</TableCell>
+                        <TableCell>
+                          <Link
+                            to={`/project/${project.id}`}
+                            className={classes.link}
+                          >
+                            {project.projectName}
+                          </Link>
+                        </TableCell>
                         <TableCell>{project.categoryName}</TableCell>
                         <TableCell>{project.creator.name}</TableCell>
                         <TableCell>
