@@ -5,6 +5,7 @@ import Auth from "./features/auth";
 import Login from "./features/auth/pages/Login";
 import Register from "./features/auth/pages/Register";
 import ProjectFeature from "./features/project";
+import DetailPage from "./features/project/pages/DetailPage";
 import ListPage from "./features/project/pages/ListPage";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
         <Route path="/project" element={<ProjectFeature />}>
           <Route path="" element={<Navigate to="list" />} />
           <Route path="list" element={<ListPage />} />
+          <Route path=":projectid" element={<DetailPage />} />
         </Route>
       </Routes>
     </div>
