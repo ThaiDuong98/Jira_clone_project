@@ -1,9 +1,9 @@
 import axiosClient from "./axiosClient";
 
 const projectAPI = {
-    getAllProject(){
-        const url = "/Project/getAllProject"
-        return axiosClient.get(url)
+    getAllProject(keyword){
+        const url = `/Project/getAllProject?${keyword}`
+        return axiosClient.get(url,keyword)
     },
     getAllCategory(){
         const url = "/ProjectCategory"

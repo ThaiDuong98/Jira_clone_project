@@ -21,11 +21,10 @@ import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import MembersDialog from "../components/MembersDialog";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import DialogFrame from "../../../components/Dialog";
 import DialogConfirm from "../../../components/DialogConfirm";
 import { deleteProject } from "../projectSlice";
-import { typography } from "@mui/system";
 import { toast } from "react-toastify";
 import ProjectForm from "./ProjectForm";
 import {
@@ -35,6 +34,7 @@ import {
   clearUpdateProject,
 } from "../projectSlice";
 import { useNavigate } from "react-router-dom";
+import MembersList from "./MemberList";
 
 function ProjectList({ projectList, onSubmitProjectForm }) {
   const dispatch = useDispatch();
@@ -43,12 +43,19 @@ function ProjectList({ projectList, onSubmitProjectForm }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
   const [openProjectDialog, setOpenProjectDialog] = useState(false);
   const [openDialogConfirm, setOpenDialogConfirm] = useState(false);
+  const [openMemberList, setOpentMemberList] = useState(false);
   const [idProject, setIdProject] = useState(0);
   const [projectName, setProjectName] = useState();
+  const [projectMember, setProjectMember] = useState(undefined);
   const [updatedProject, setUpdatedProject] = useState(undefined);
 
   const handleClickOpenProjectDialog = () => {
     setOpenProjectDialog(true);
+  };
+
+  const handleCliclOpenMemberList = (project) => {
+    setOpentMemberList(true);
+    setProjectMember(project);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -154,7 +161,14 @@ function ProjectList({ projectList, onSubmitProjectForm }) {
                                 />
                               </Tooltip>
                             ))}
-                            <MembersDialog />
+                            <Tooltip title="Add members">
+                              <ManageAccountsIcon
+                                color="primary"
+                                onClick={() =>
+                                  handleCliclOpenMemberList(project)
+                                }
+                              />
+                            </Tooltip>
                           </Stack>
                         </TableCell>
                         <TableCell>
@@ -189,6 +203,14 @@ function ProjectList({ projectList, onSubmitProjectForm }) {
         >
           Do you want to detele "{projectName}" project?
         </DialogConfirm>
+
+        <DialogFrame
+          setOpen={setOpentMemberList}
+          open={openMemberList}
+          title="Add member"
+        >
+          <MembersList projectMember={projectMember} />
+        </DialogFrame>
 
         <TablePagination
           rowsPerPageOptions={[6, 20, 30]}
