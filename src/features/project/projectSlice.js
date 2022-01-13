@@ -3,8 +3,8 @@ import projectAPI from '../../apis/projectApi'
 
 export const getAllProject = createAsyncThunk(
     'project/getAll',
-    async () => {
-        const respone = await projectAPI.getAllProject()
+    async (keyword) => {
+        const respone = await projectAPI.getAllProject(keyword)
       
         return respone.data.content
     }
