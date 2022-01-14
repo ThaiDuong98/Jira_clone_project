@@ -54,7 +54,9 @@ const projectSlice = createSlice({
         projectList: [],
         categories: [],
         project: {},
-        updatedProject: undefined
+        updatedProject: undefined,
+        searchProject: '',
+        filerProject: undefined
     },
     reducers: {
         getUpdatedProject: (state, action) => {
@@ -62,6 +64,12 @@ const projectSlice = createSlice({
         },
         clearUpdateProject: (state, action) => {
             state.updatedProject = undefined
+        },
+        searchProject: (state, action) => {
+            state.searchProject = action.payload
+        },
+        filerProject: (state, action) => {
+            state.filerProject = action.payload
         }
     },
     extraReducers: {
@@ -86,5 +94,5 @@ const projectSlice = createSlice({
     }
 })
 
-export const {getUpdatedProject, clearUpdateProject} = projectSlice.actions
+export const {getUpdatedProject, clearUpdateProject, searchProject,filerProject} = projectSlice.actions
 export default projectSlice.reducer

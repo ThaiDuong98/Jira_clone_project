@@ -10,7 +10,7 @@ import {
   TableRow,
   Paper,
   Button,
-  FormHelperText,
+  TableSortLabel,
 } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
@@ -19,28 +19,33 @@ import Tooltip from "@mui/material/Tooltip";
 import { DeleteOutlined } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import HeightIcon from "@mui/icons-material/Height";
 import DialogFrame from "../../../components/Dialog";
 import DialogConfirm from "../../../components/DialogConfirm";
-import { deleteProject } from "../projectSlice";
+import { deleteProject, filerProject, searchProject } from "../projectSlice";
 import { toast } from "react-toastify";
 import ProjectForm from "./ProjectForm";
 import {
   updateProject,
-  createProject,
   getUpdatedProject,
   clearUpdateProject,
 } from "../projectSlice";
 import { useNavigate, Link } from "react-router-dom";
 import MembersList from "./MemberList";
 import { useStyle } from "../../../assets/styles/useStyle";
+import FilterProject from "./FilterProject";
+import SearchProject from "./SearchProject";
 
-function ProjectList({ projectList, onSubmitProjectForm }) {
+function ProjectList({ projectListProp, onSubmitProjectForm, categories }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const classes = useStyle();
+  const [projectList, setProjectList] = useState(projectListProp);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(6);
   const [openProjectDialog, setOpenProjectDialog] = useState(false);
@@ -50,6 +55,11 @@ function ProjectList({ projectList, onSubmitProjectForm }) {
   const [projectName, setProjectName] = useState();
   const [projectMember, setProjectMember] = useState(undefined);
   const [updatedProject, setUpdatedProject] = useState(undefined);
+  const [orderSort, setOrderSort] = useState("Asc");
+
+  useEffect(() => {
+    setProjectList(projectListProp);
+  }, [projectListProp]);
 
   const handleClickOpenProjectDialog = () => {
     setOpenProjectDialog(true);
@@ -96,11 +106,59 @@ function ProjectList({ projectList, onSubmitProjectForm }) {
     }, 0);
   };
 
+  const handleSearch = (e) => {
+    dispatch(searchProject(e.target.value));
+  };
+
+  const handleFilterProject = (e) => {
+    dispatch(filerProject(e.target.value));
+  };
+
+  const handleSortProjectById = (col) => {
+    if (orderSort === "Asc") {
+      const sorted = [...projectList].sort((a, b) =>
+        a[col] > b[col] ? 1 : -1
+      );
+      setProjectList(sorted);
+      setOrderSort("Desc");
+    }
+    if (orderSort === "Desc") {
+      const sorted = [...projectList].sort((a, b) =>
+        a[col] < b[col] ? 1 : -1
+      );
+      setProjectList(sorted);
+      setOrderSort("Asc");
+    }
+  };
+
   return (
     <Box>
       <Box>
         <CardHeader title="Project List"></CardHeader>
-        <Box sx={{ mb: 1 }}>
+        <Box
+          sx={{
+            mb: 2,
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
+          <Paper
+            sx={{
+              p: "2px 4px",
+              display: "flex",
+              alignItems: "center",
+              width: 600,
+              height: 45,
+              justifyContent: "space-between",
+            }}
+          >
+            <SearchProject handleSearch={handleSearch} />
+            <FilterProject
+              categories={categories}
+              handleFilterProject={handleFilterProject}
+            />
+          </Paper>
+
           <Button
             onClick={handleClickOpenProjectDialog}
             variant="contained"
@@ -123,12 +181,18 @@ function ProjectList({ projectList, onSubmitProjectForm }) {
           />
         </DialogFrame>
       </Box>
+
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer sx={{ maxHeight: 440 }}>
           <Table aria-label="custom pagination table">
             <TableHead>
               <TableRow>
-                <TableCell>Id</TableCell>
+                <TableCell>
+                  Id
+                  <IconButton onClick={() => handleSortProjectById("id")}>
+                    <HeightIcon />
+                  </IconButton>
+                </TableCell>
                 <TableCell>Project Name</TableCell>
                 <TableCell>Category</TableCell>
                 <TableCell>Creator</TableCell>
