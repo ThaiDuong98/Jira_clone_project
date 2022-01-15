@@ -61,11 +61,15 @@ function ListPage() {
   const searchProjectResult = projectList.filter((project) => {
     if (filerProject) {
       return (
-        project.projectName.includes(searchProject) &&
+        project.projectName
+          .toLowerCase()
+          .includes(searchProject.toLowerCase()) &&
         project.categoryId.toString().includes(filerProject)
       );
     }
-    return project.projectName.includes(searchProject);
+    return project.projectName
+      .toLowerCase()
+      .includes(searchProject.toLowerCase());
   });
 
   return (
