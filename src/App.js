@@ -21,7 +21,7 @@ function App() {
         <Route path="/project" element={<ProjectFeature />}>
           <Route path="" element={<Navigate to="list" />} />
           <Route path="list" element={<ListPage />} />
-          <Route path=":projectid" element={<DetailPage />} />
+          <Route path=":projectId" element={<DetailPage />} />
         </Route>
       </Routes>
     </div>
