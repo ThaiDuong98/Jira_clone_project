@@ -21,6 +21,7 @@ import ErrorAddTask from "./ErrorAddTask";
 import { toast } from "react-toastify";
 import projectAPI from "../../../apis/projectApi";
 import DialogConfirm from "../../../components/DialogConfirm";
+import { processLogout } from "../../auth/userSlice";
 
 export default function NavBarLeft() {
   const [openTaskFrom, setOpenTaskForm] = useState(false);
@@ -100,8 +101,7 @@ export default function NavBarLeft() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem("userInfo");
-    localStorage.removeItem("access_token");
+    dispatch(processLogout());
     navigate("/auth/login");
   };
 

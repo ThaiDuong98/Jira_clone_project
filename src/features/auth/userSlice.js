@@ -27,6 +27,13 @@ const userSlice = createSlice({
         userInfo: JSON.parse(localStorage.getItem('userInfo')) || {},
         statusCode: ''
     },
+    reducers: {
+        processLogout: (state, action) =>{
+            state.userInfo = {}
+            localStorage.removeItem("userInfo");
+            localStorage.removeItem("access_token");
+        }
+    },
     extraReducers: {
         [processLogin.fulfilled]: (state, action) => {
             state.userInfo = action.payload
@@ -38,4 +45,5 @@ const userSlice = createSlice({
     }
 })
 
+export const {processLogout} = userSlice.actions
 export default userSlice.reducer
