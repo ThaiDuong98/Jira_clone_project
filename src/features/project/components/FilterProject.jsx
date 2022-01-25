@@ -8,7 +8,7 @@ function FilterProject({ categories, handleFilterProject }) {
       <Select label="Category" onChange={handleFilterProject}>
         {categories &&
           categories.map((category) => (
-            <MenuItem value={category.id}>
+            <MenuItem value={category.id} key={category.id}>
               {category.projectCategoryName}
             </MenuItem>
           ))}

@@ -25,25 +25,28 @@ export default function ProjectDetailBoard({ members, taskList = [] }) {
         </Button>
       </Box>
       <Box sx={{ display: "flex", marginTop: "20px" }}>
-        <Box
-          key={index}
-          sx={{
-            width: "20rem",
-            minHeight: "25rem",
-            marginRight: "10px",
-            backgroundColor: "#f4f5f7",
-            borderRadius: "0.2rem",
-          }}
-        >
-          <Typography sx={{ color: "#5e6c84", p: 1 }}>
-            {taskListDetail.statusName}
-          </Typography>
-          <TaskList
-            columnId={taskListDetail.statusId}
-            onCardDrop={onCardDrop}
-            taskList={taskListDetail?.lstTaskDeTail}
-          />
-        </Box>
+        {taskList &&
+          taskList.map((taskListDetail, index) => (
+            <Box
+              key={index}
+              sx={{
+                width: "20rem",
+                minHeight: "25rem",
+                marginRight: "10px",
+                backgroundColor: "#f4f5f7",
+                borderRadius: "0.2rem",
+              }}
+            >
+              <Typography sx={{ color: "#5e6c84", p: 1 }}>
+                {taskListDetail.statusName}
+              </Typography>
+              <TaskList
+                columnId={taskListDetail.statusId}
+                // onCardDrop={onCardDrop}
+                taskList={taskListDetail?.lstTaskDeTail}
+              />
+            </Box>
+          ))}
       </Box>
     </Box>
   );

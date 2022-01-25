@@ -16,6 +16,7 @@ import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
+import Chip from "@mui/material/Chip";
 import { DeleteOutlined } from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import React from "react";
@@ -222,7 +223,9 @@ function ProjectList({ projectListProp, onSubmitProjectForm, categories }) {
                           </Link>
                         </TableCell>
                         <TableCell>{project.categoryName}</TableCell>
-                        <TableCell>{project.creator.name}</TableCell>
+                        <TableCell>
+                          <Chip label={project.creator.name} />
+                        </TableCell>
                         <TableCell>
                           <Stack direction="row" spacing={2}>
                             {project.members.map((member) => (
@@ -230,7 +233,7 @@ function ProjectList({ projectListProp, onSubmitProjectForm, categories }) {
                                 <Avatar
                                   alt="member image"
                                   src={member.avatar}
-                                  sx={{ width: 24, height: 24 }}
+                                  sx={{ width: 30, height: 30 }}
                                 />
                               </Tooltip>
                             ))}
