@@ -56,7 +56,6 @@ const TaskForm = (props) => {
   const { assignUsers } = useSelector((state) => state.projects);
 
   useEffect(() => {
-    dispatch(getProjectDetail(selectedProjectId));
     //from selected project id get all member belong to this project
     dispatch(getAssignUsers(selectedProjectId));
   }, [dispatch, selectedProjectId]);
@@ -67,6 +66,7 @@ const TaskForm = (props) => {
   const handleSubmitTaskFrom = (values) => {
     if (onSubmitTaskForm) {
       onSubmitTaskForm(values);
+      dispatch(getProjectDetail(selectedProjectId));
     }
   };
 
