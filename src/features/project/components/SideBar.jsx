@@ -17,6 +17,8 @@ import { styled } from "@mui/material/styles";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import Tooltip from "@mui/material/Tooltip";
+import { useStyle } from "../../../assets/styles/useStyle";
 
 const drawerWidth = 240;
 
@@ -69,8 +71,8 @@ const Drawer = styled(MuiDrawer, {
 
 export default function SideBar() {
   const [open, setOpen] = useState(true);
-
   const userInfo = useSelector((state) => state.user.userInfo);
+  const classes = useStyle();
 
   const handleOpenOrClose = () => {
     setOpen((open) => !open);
@@ -110,10 +112,7 @@ export default function SideBar() {
                 </Box>
               </ListItemButton>
             </ListItem>
-            <NavLink
-              className={({ isActive }) => (isActive ? "active" : "")}
-              to="list"
-            >
+            <NavLink className={classes.linkNormal} to="/project">
               <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
@@ -129,36 +128,44 @@ export default function SideBar() {
         <nav aria-label="secondary mailbox folders">
           <List>
             <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <LocalShippingOutlinedIcon sx={{ color: "black" }} />
-                </ListItemIcon>
-                <ListItemText primary="Release" />
-              </ListItemButton>
+              <Tooltip title="Not implemented" followCursor>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <LocalShippingOutlinedIcon sx={{ color: "black" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Release" />
+                </ListItemButton>
+              </Tooltip>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <FindInPageOutlinedIcon sx={{ color: "black" }} />
-                </ListItemIcon>
-                <ListItemText primary="Pages" />
-              </ListItemButton>
+              <Tooltip title="Not implemented" followCursor>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <FindInPageOutlinedIcon sx={{ color: "black" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Pages" />
+                </ListItemButton>
+              </Tooltip>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <FilterListIcon sx={{ color: "black" }} />
-                </ListItemIcon>
-                <ListItemText primary="Issue and Filter" />
-              </ListItemButton>
+              <Tooltip title="Not implemented" followCursor>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <FilterListIcon sx={{ color: "black" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Issue and Filter" />
+                </ListItemButton>
+              </Tooltip>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon>
-                  <AssessmentOutlinedIcon sx={{ color: "black" }} />
-                </ListItemIcon>
-                <ListItemText primary="Reports" />
-              </ListItemButton>
+              <Tooltip title="Not implemented" followCursor>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <AssessmentOutlinedIcon sx={{ color: "black" }} />
+                  </ListItemIcon>
+                  <ListItemText primary="Reports" />
+                </ListItemButton>
+              </Tooltip>
             </ListItem>
           </List>
         </nav>

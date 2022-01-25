@@ -5,7 +5,7 @@ import TaskItem from "./TaskItem";
 export default function TaskList({ columnId, taskList = [], onCardDrop }) {
   return (
     <Box sx={{ border: "none", display: "flex", flexDirection: "column" }}>
-      <TaskItem task={task} />
+      {taskList && taskList.map((task) => <TaskItem task={task} />)}
     </Box>
   );
 }

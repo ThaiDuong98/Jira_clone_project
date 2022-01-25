@@ -47,6 +47,45 @@ export const updateProject = createAsyncThunk(
     }
 )
 
+export const getProjectDetail = createAsyncThunk(
+    "project/getProjectDetail",
+    async (id) => {
+        const respone = await projectAPI.getProjectDetail(id)
+        return respone.data.content
+    }
+)
+
+export const getAllStatus = createAsyncThunk(
+    "project/getAllStatus",
+    async () => {
+        const respone = await projectAPI.getAllStatus()
+        return respone.data.content
+    }
+)
+
+export const getPriorities = createAsyncThunk(
+    "project/getPriorities",
+    async () => {
+        const respone = await projectAPI.getPriorities()
+        return respone.data.content
+    }
+)
+
+export const getAllTaskType = createAsyncThunk(
+    "project/getAllTaskType",
+    async () => {
+        const respone = await projectAPI.getAllTaskType()
+        return respone.data.content
+    }
+)
+
+export const getAssignUsers = createAsyncThunk(
+    "project/getAssignUsers",
+    async (projectId) => {
+        const respone= await projectAPI.getAssignUsers(projectId)
+        return respone.data.content
+    }
+)
 
 const projectSlice = createSlice({
     name: 'project',
@@ -56,7 +95,12 @@ const projectSlice = createSlice({
         project: {},
         updatedProject: undefined,
         searchProject: '',
-        filerProject: undefined
+        filerProject: undefined,
+        projectDetail: {},
+        listStatus: [],
+        priorities: [],
+        listTaskType: [],
+        assignUsers: []
     },
     reducers: {
         getUpdatedProject: (state, action) => {
@@ -90,6 +134,21 @@ const projectSlice = createSlice({
         },
         [updateProject.fulfilled]: (state, action) => {
             state.updatedProject = undefined
+        },
+        [getProjectDetail.fulfilled]: (state, action) => {
+            state.projectDetail = action.payload
+        },
+        [getAllStatus.fulfilled]: (state, action) => {
+            state.listStatus = action.payload
+        },
+        [getPriorities.fulfilled]: (state, action) => {
+            state.priorities = action.payload
+        },
+        [getAllTaskType.fulfilled]: (state, action) => {
+            state.listTaskType = action.payload
+        },
+        [getAssignUsers.fulfilled]: (state, action) => {
+            state.assignUsers = action.payload
         }
     }
 })

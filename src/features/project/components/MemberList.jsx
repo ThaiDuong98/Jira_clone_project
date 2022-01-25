@@ -121,7 +121,7 @@ function MembersList(props) {
                     <Avatar
                       src={members.avatar}
                       alt="member image"
-                      sx={{ width: 24, height: 24 }}
+                      sx={{ width: 30, height: 30 }}
                     />
                   </Tooltip>
                 </TableCell>
