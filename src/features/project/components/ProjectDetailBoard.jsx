@@ -1,28 +1,39 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button, Typography, Tooltip } from "@mui/material";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { processSearchTask } from "../projectSlice";
 import AvatarGroup from "./AvatarGroup";
-import InputSearch from "./InputSearch";
+import SearchTask from "./SearchTask";
 import TaskList from "./TaskList";
 
 export default function ProjectDetailBoard({ members, taskList = [] }) {
+  const dispatch = useDispatch();
+  const handleSearchTaskChange = (e) => {
+    dispatch(processSearchTask(e.target.value));
+  };
+
   return (
     <Box>
       <Typography sx={{ marginBottom: "20px" }} variant="h5">
         Board
       </Typography>
       <Box sx={{ display: "flex" }}>
-        <InputSearch />
+        <SearchTask handleSearchTaskChange={handleSearchTaskChange} />
         <AvatarGroup members={members} />
-        <Button
-          sx={{ marginLeft: "20px", textAlign: "center", lineHeight: "35px" }}
-        >
-          Only My Issues
-        </Button>
-        <Button
-          sx={{ marginLeft: "20px", textAlign: "center", lineHeight: "35px" }}
-        >
-          Recently Updated
-        </Button>
+        <Tooltip title="Not implemented" followCursor>
+          <Button
+            sx={{ marginLeft: "20px", textAlign: "center", lineHeight: "35px" }}
+          >
+            Only My Issues
+          </Button>
+        </Tooltip>
+        <Tooltip title="Not implemented" followCursor>
+          <Button
+            sx={{ marginLeft: "20px", textAlign: "center", lineHeight: "35px" }}
+          >
+            Recently Updated
+          </Button>
+        </Tooltip>
       </Box>
       <Box sx={{ display: "flex", marginTop: "20px" }}>
         {taskList &&

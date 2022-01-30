@@ -2,7 +2,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Box } from "@mui/material";
 import React from "react";
 
-export default function InputSearch() {
+export default function SearchTask({ handleSearchTaskChange }) {
   return (
     <Box
       classes="search-block"
@@ -18,6 +18,7 @@ export default function InputSearch() {
           borderRadius: "3px",
           paddingLeft: "32px",
         }}
+        onChange={handleSearchTaskChange}
       />
       <SearchIcon
         sx={{ position: "absolute", left: "5%", top: "25%", color: " #67748b" }}

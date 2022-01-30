@@ -5,6 +5,7 @@ import * as yup from "yup";
 import InputField from "../../../components/CustomTextfield";
 import { useSelector, useDispatch } from "react-redux";
 import Slider from "@mui/material/Slider";
+import AccessAlarmsIcon from "@mui/icons-material/AccessAlarms";
 import { useNavigate } from "react-router-dom";
 import {
   Box,
@@ -53,7 +54,7 @@ const TaskForm = (props) => {
   const timeSpent = +watch("timeTrackingSpent");
   const timeRemaining = +watch("timeTrackingRemaining");
   const dispatch = useDispatch();
-  const { assignUsers } = useSelector((state) => state.projects);
+  const { assignUsers, projectDetail } = useSelector((state) => state.projects);
 
   useEffect(() => {
     //from selected project id get all member belong to this project
@@ -66,7 +67,7 @@ const TaskForm = (props) => {
   const handleSubmitTaskFrom = (values) => {
     if (onSubmitTaskForm) {
       onSubmitTaskForm(values);
-      dispatch(getProjectDetail(selectedProjectId));
+      dispatch(getProjectDetail(projectDetail.id));
     }
   };
 
@@ -157,12 +158,15 @@ const TaskForm = (props) => {
           </Grid>
           <Grid item xs={6}>
             <Typography>Time Tracking</Typography>
-            <Slider
-              value={timeSpent}
-              aria-label="Default"
-              valueLabelDisplay="auto"
-              max={timeSpent + timeRemaining}
-            />
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+              <AccessAlarmsIcon sx={{ mr: 1.5 }} />
+              <Slider
+                value={timeSpent}
+                aria-label="Default"
+                valueLabelDisplay="auto"
+                max={timeSpent + timeRemaining}
+              />
+            </Box>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography variant="caption">{timeSpent}h logged</Typography>
               <Typography variant="caption">
