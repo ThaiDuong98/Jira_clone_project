@@ -100,7 +100,8 @@ const projectSlice = createSlice({
         listStatus: [],
         priorities: [],
         listTaskType: [],
-        assignUsers: []
+        assignUsers: [],
+        searchTask: ''
     },
     reducers: {
         getUpdatedProject: (state, action) => {
@@ -114,6 +115,9 @@ const projectSlice = createSlice({
         },
         filerProject: (state, action) => {
             state.filerProject = action.payload
+        },
+        processSearchTask: (state, action) => {
+            state.searchTask = action.payload
         }
     },
     extraReducers: {
@@ -153,5 +157,5 @@ const projectSlice = createSlice({
     }
 })
 
-export const {getUpdatedProject, clearUpdateProject, searchProject,filerProject} = projectSlice.actions
+export const {getUpdatedProject, clearUpdateProject, searchProject,filerProject, processSearchTask} = projectSlice.actions
 export default projectSlice.reducer

@@ -227,18 +227,38 @@ function ProjectList({ projectListProp, onSubmitProjectForm, categories }) {
                           <Chip label={project.creator.name} />
                         </TableCell>
                         <TableCell>
-                          <Stack direction="row" spacing={2}>
-                            {project.members.map((member) => (
+                          <Stack direction="row">
+                            {project.members.slice(0, 3).map((member) => (
                               <Tooltip title={member.name} key={member.userId}>
                                 <Avatar
                                   alt="member image"
                                   src={member.avatar}
-                                  sx={{ width: 30, height: 30 }}
+                                  sx={{ width: 32, height: 32, ml: 0.5 }}
                                 />
                               </Tooltip>
                             ))}
+                            {project.members.length > 3 && (
+                              <Box
+                                component="div"
+                                sx={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  width: 32,
+                                  height: 32,
+                                  borderRadius: "50%",
+                                  backgroundColor: "#dfdfdf",
+                                  ml: 0.5,
+                                  lineHeight: "35px",
+                                  fontSize: 10,
+                                }}
+                              >
+                                +{project.members.length - 3}
+                              </Box>
+                            )}
                             <Tooltip title="Add members">
                               <ManageAccountsIcon
+                                sx={{ width: 30, height: 30, ml: 0.5 }}
                                 color="primary"
                                 onClick={() =>
                                   handleCliclOpenMemberList(project)

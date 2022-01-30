@@ -56,7 +56,10 @@ export default function NavBarLeft() {
 
   useEffect(() => {
     //1.1 get all project
-    dispatch(getAllProject);
+    dispatch(getAllProject());
+  }, [dispatch]);
+
+  useEffect(() => {
     //1.2 get All status
     dispatch(getAllStatus());
     //1.3 get All priority
@@ -160,7 +163,7 @@ export default function NavBarLeft() {
         title="Add task"
         maxWidth="md"
       >
-        {myProjects.length > 0 ? (
+        {task.projectId ? (
           <TaskForm
             myProjects={myProjects}
             onCloseDialog={handleCloseTaskForm}

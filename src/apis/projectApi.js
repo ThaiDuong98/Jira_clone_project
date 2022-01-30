@@ -44,6 +44,37 @@ const projectAPI = {
     createTask(task){
         const url = "/Project/createTask"
         return axiosClient.post(url, task)
+    },
+    updateTaskStatus(statusData){
+        const url = "/Project/updateStatus"
+        return axiosClient.put(url, statusData)
+    },
+    removeTaskFromProject(taskId){
+        const url = `/Project/removeTask?taskId=${taskId}`
+        return axiosClient.delete(url)
+    },
+    updateTask(updatedTask) {
+        return axiosClient.post("Project/updateTask", updatedTask);
+    },
+    removeUserFromTask(assigneeData){
+        const url = "/Project/removeUserFromTask"
+        return axiosClient.post(url, assigneeData)
+    },
+    getListComment(taskId){
+        const url = `/Comment/getAll?taskId=${taskId}`
+        return axiosClient.get(url)
+    },
+    addComment(comment){
+        const url = "/Comment/insertComment"
+        return axiosClient.post(url, comment)
+    },
+    deleteComment(commentId){
+        const url = `/Comment/deleteComment?idComment=${commentId}`
+        return axiosClient.delete(url)
+    },
+    editComment(commentId, commentContent){
+        const url = `/Comment/updateComment?id=${commentId}&contentComment=${commentContent}`
+        return axiosClient.put(url)
     }
 }
 
