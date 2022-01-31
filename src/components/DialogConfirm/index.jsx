@@ -12,9 +12,21 @@ import {
 import { Box } from "@mui/system";
 import React from "react";
 
-function DialogConfirm({ children, title, setOpen, open, onConfirm }) {
+function DialogConfirm({
+  children,
+  title,
+  setOpen,
+  open,
+  onConfirm,
+  maxWidth = "sm",
+}) {
   return (
-    <Dialog open={open} onClose={() => setOpen(false)} maxWidth="sm" fullWidth>
+    <Dialog
+      open={open}
+      onClose={() => setOpen(false)}
+      maxWidth={maxWidth}
+      fullWidth
+    >
       <DialogTitle>{title}</DialogTitle>
       <Box position="absolute" top={0} right={0}>
         <IconButton onClick={() => setOpen(false)}>
@@ -23,7 +35,7 @@ function DialogConfirm({ children, title, setOpen, open, onConfirm }) {
       </Box>
       <DialogContent>{children}</DialogContent>
       <DialogActions>
-        <Button onClick={() => setOpen(false)} color="secondary">
+        <Button onClick={() => setOpen(false)} variant="outlined" size="small">
           No
         </Button>
         <Button
@@ -32,6 +44,8 @@ function DialogConfirm({ children, title, setOpen, open, onConfirm }) {
             setOpen(false);
           }}
           color="primary"
+          variant="contained"
+          size="small"
         >
           Yes
         </Button>

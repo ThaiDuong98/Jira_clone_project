@@ -183,6 +183,7 @@ export default function NavBarLeft() {
         setOpen={setOpenLogoutDialog}
         open={openLogoutDialog}
         onConfirm={handleLogout}
+        maxWidth="xs"
       >
         Do you want to logout?
       </DialogConfirm>

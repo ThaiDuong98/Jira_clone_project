@@ -241,6 +241,7 @@ const TaskDetailBoard = ({
         setOpen={setOpenDeleteTaskDialog}
         title="Delete Task"
         onConfirm={handleRemoveTask}
+        maxWidth="xs"
       >
         Do you want to delete this task?
       </DialogConfirm>

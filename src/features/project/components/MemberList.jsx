@@ -140,6 +140,7 @@ function MembersList(props) {
         setOpen={setOpenDeleteDialog}
         title="Confirm remove user from project"
         onConfirm={handleDeleteUserFromProject}
+        maxWidth="xs"
       >
         Do you want to remove this user?
       </DialogConfirm>
