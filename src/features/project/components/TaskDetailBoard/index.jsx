@@ -92,6 +92,24 @@ const TaskDetailBoard = ({
       value = [...listUserAsign, value];
     }
 
+    if (name === "originalEstimate") {
+      if (value === "") {
+        return;
+      }
+    }
+
+    if (name === "timeTrackingSpent") {
+      if (value === "") {
+        return;
+      }
+    }
+
+    if (name === "timeTrackingRemaining") {
+      if (value === "") {
+        return;
+      }
+    }
+
     const updatedTask = {
       listUserAsign,
       description: task.description,
@@ -113,6 +131,7 @@ const TaskDetailBoard = ({
     } catch (error) {
       console.log(error);
       setEditTaskName(false);
+      toast.error("You don't have permission to this project!");
     }
   };
 
