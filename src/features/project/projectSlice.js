@@ -136,6 +136,7 @@ const projectSlice = createSlice({
             const id = action.payload?.[0]
             state.projectList = state.projectList.filter(project => project.id !== id)
             state.updatedProject = undefined
+            state.searchProject = ""
         },
         [updateProject.fulfilled]: (state, action) => {
             state.updatedProject = undefined

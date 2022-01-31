@@ -20,7 +20,7 @@ import {
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
 
-function SearchProject({ handleSearch }) {
+function SearchProject({ handleSearch, searchProjectByText }) {
   return (
     <Box>
       <IconButton sx={{ p: "10px" }} aria-label="menu">
@@ -29,6 +29,7 @@ function SearchProject({ handleSearch }) {
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search project"
+        value={searchProjectByText}
         inputProps={{ "aria-label": "search project" }}
         onChange={handleSearch}
       />

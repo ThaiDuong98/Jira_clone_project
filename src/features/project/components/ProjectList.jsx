@@ -57,6 +57,7 @@ function ProjectList({ projectListProp, onSubmitProjectForm, categories }) {
   const [projectMember, setProjectMember] = useState(undefined);
   const [updatedProject, setUpdatedProject] = useState(undefined);
   const [orderSort, setOrderSort] = useState("Asc");
+  const [searchProjectByText, setSearchProjectByText] = useState("");
 
   useEffect(() => {
     setProjectList(projectListProp);
@@ -89,6 +90,7 @@ function ProjectList({ projectListProp, onSubmitProjectForm, categories }) {
   const handleDeleteProject = () => {
     if (idProject) {
       dispatch(deleteProject(idProject));
+      setSearchProjectByText("");
       setIdProject(null);
       toast.success("Delete project successfully!");
     }
@@ -108,7 +110,8 @@ function ProjectList({ projectListProp, onSubmitProjectForm, categories }) {
   };
 
   const handleSearch = (e) => {
-    dispatch(searchProject(e.target.value));
+    setSearchProjectByText(e.target.value);
+    dispatch(searchProject(searchProjectByText));
   };
 
   const handleFilterProject = (e) => {
@@ -153,7 +156,10 @@ function ProjectList({ projectListProp, onSubmitProjectForm, categories }) {
               justifyContent: "space-between",
             }}
           >
-            <SearchProject handleSearch={handleSearch} />
+            <SearchProject
+              handleSearch={handleSearch}
+              searchProjectByText={searchProjectByText}
+            />
             <FilterProject
               categories={categories}
               handleFilterProject={handleFilterProject}
