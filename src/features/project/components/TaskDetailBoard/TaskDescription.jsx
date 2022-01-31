@@ -8,7 +8,7 @@ const TaskDescription = ({
   setEditDescription,
   handleEditDescription,
 }) => {
-  const [description, setDecription] = useState();
+  const [description, setDescription] = useState(task.description);
   // console.log(description);
 
   const onEditDescription = () => {
@@ -39,7 +39,7 @@ const TaskDescription = ({
              alignleft aligncenter alignright | \
              bullist numlist outdent indent | help",
             }}
-            onEditorChange={(value) => setDecription(value)}
+            onEditorChange={(value) => setDescription(value)}
           />
           <Box sx={{ mt: 1 }}>
             <Button
