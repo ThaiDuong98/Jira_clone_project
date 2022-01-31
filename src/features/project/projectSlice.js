@@ -123,6 +123,7 @@ const projectSlice = createSlice({
     extraReducers: {
         [getAllProject.fulfilled]: (state, action) => {
             state.projectList = action.payload
+            state.searchProject = ""
         },
         [getAllCategory.fulfilled]: (state, action) => {
             state.categories = action.payload
@@ -153,6 +154,9 @@ const projectSlice = createSlice({
         },
         [getAssignUsers.fulfilled]: (state, action) => {
             state.assignUsers = action.payload
+        }, 
+        [getAssignUsers.rejected]: (state, action) => {
+            state.assignUsers = []
         }
     }
 })

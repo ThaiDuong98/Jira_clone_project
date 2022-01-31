@@ -91,6 +91,7 @@ const TaskDetailBoard = ({
     if (name === "listUserAsign") {
       value = [...listUserAsign, value];
     }
+
     const updatedTask = {
       listUserAsign,
       description: task.description,
@@ -111,11 +112,15 @@ const TaskDetailBoard = ({
       setEditTaskName(false);
     } catch (error) {
       console.log(error);
-      toast.error("You don't have permission to this project!");
+      setEditTaskName(false);
     }
   };
 
   const handleEditDescription = async (description) => {
+    if (task.description === description) {
+      setEditDescription(false);
+      return;
+    }
     const updatedTask = {
       description,
       listUserAsign: task.assigness?.map((user) => user.id),
@@ -135,6 +140,7 @@ const TaskDetailBoard = ({
       setEditDescription(false);
     } catch (error) {
       console.log(error);
+      setEditDescription(false);
       toast.error("You don't have permission to this project!");
     }
   };
