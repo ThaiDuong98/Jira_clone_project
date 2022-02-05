@@ -67,11 +67,16 @@ function MembersList(props) {
   };
 
   const handleAssignUserToProject = async (e, value) => {
+    if (value === null) {
+      return;
+    }
+
     try {
       const respone = await userApi.assignUserToProject({
         projectId: projectMember.id,
         userId: value.userId,
       });
+
       setMembers((prevUserList) => {
         const newUser = userList.find((user) => user.userId === value.userId);
         return [...prevUserList, newUser];
